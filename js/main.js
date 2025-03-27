@@ -397,6 +397,13 @@ function setActive(activeLink) {
     activeLink.classList.add("active");
 }
 
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
 // document.addEventListener("DOMContentLoaded", () => {
 //     // ==== INITIALIZATION ====
 //     let currentStep = 1;
