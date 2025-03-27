@@ -1442,6 +1442,7 @@ button:hover, .magic-card:hover {
 
 .menu-toggle {
   display: none;
+  margin-bottom: 10px;
 }
 
 .hamburger {
@@ -1449,6 +1450,7 @@ button:hover, .magic-card:hover {
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
+  padding: 20px;
 }
 
 .hamburger div {
@@ -1472,6 +1474,14 @@ button:hover, .magic-card:hover {
     top: 60px;
     left: 0;
     z-index: 999;
+    padding-bottom: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    background-color: rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0 2rem; /* spacing top and bottom */
+    border-radius: 0 0 10px 10px;
   }
 
   .menu-toggle:checked + .hamburger + .nav-links {
