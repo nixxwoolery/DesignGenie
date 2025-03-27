@@ -1,0 +1,16 @@
+# Ignore system & Python files
+.DS_Store
+__pycache__/
+*.pyc
+
+# Ignore environments
+venv/
+new_env/
+
+# Ignore logs, local configs, and temp files
+*.log
+*.env
+.env
+
+# Optional: ignore big media or node_modules
+node_modules/

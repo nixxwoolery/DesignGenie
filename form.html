@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="Your description goes here">
+    	<meta name="keywords" content="one, two, three">
+
+		<title>DesignGenie</title>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+    	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+	</head>
+	<body>
+		<!-- Navigation Bar -->
+		<header class="navbar">
+			<div class="navbar-container">
+				<a href="index.html" class="logo">DesignGenie</a>
+				<nav role="navigation">
+					<ul class="nav-links">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="features.html">Features</a></li>
+						<li><a href="how-it-works.html">How It Works</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		
+	<div class="form-container">
+		<div class="progress-container">
+			<div class="progress-bar" id="progressBar"></div>
+		</div>
+
+		<form id="onboardingForm">	
+			<!-- Introduction to Project Goals and Objectives Section -->
+			<div class="form-step" id="section-intro">
+				<h2>Project Goals and Objectives</h2>
+				<p>This section helps define the core goals and measurable indicators of the project, ensuring alignment with business objectives.</p>
+				<button type="button" class="btn next-btn" onclick="showStep('step-kpis')">Next</button>
+			</div>
+	
+			<!-- Step 1: Key Performance Indicators (KPIs) -->
+			<div class="form-step" id="step-kpis" style="display: none;">
+				<h2>Key Performance Indicators (KPIs)</h2>
+				<p>Select the metrics you will use to measure the success of your project:</p>
+				<div class="options-container three-columns">
+					<div class="option-box" onclick="document.getElementById('kpi-views').click();">
+						<input type="radio" name="kpis" id="kpi-views" value="Page Views">
+						<label for="kpi-views">Page Views</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('kpi-conversion').click();">
+						<input type="radio" name="kpis" id="kpi-conversion" value="Conversion Rate">
+						<label for="kpi-conversion">Conversion Rate</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('kpi-engagement').click();">
+						<input type="radio" name="kpis" id="kpi-engagement" value="User Engagement">
+						<label for="kpi-engagement">User Engagement</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn" onclick="showStep('section-intro')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-stakeholder-goals')">Next</button>
+			</div>
+	
+			<!-- Step 2: Stakeholder Goals -->
+			<div class="form-step" id="step-stakeholder-goals" style="display: none;">
+				<h2>Stakeholder Goals</h2>
+				<p>Choose the primary objectives for the client or business:</p>
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('objective-awareness').click();">
+						<input type="radio" name="objectives" id="objective-awareness" value="Increase Brand Awareness">
+						<label for="objective-awareness">Increase Brand Awareness</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('objective-leads').click();">
+						<input type="radio" name="objectives" id="objective-leads" value="Generate Leads">
+						<label for="objective-leads">Generate Leads</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('objective-sales').click();">
+						<input type="radio" name="objectives" id="objective-sales" value="Boost Sales">
+						<label for="objective-sales">Boost Sales</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('objective-educate').click();">
+						<input type="radio" name="objectives" id="objective-educate" value="Educate Audience">
+						<label for="objective-educate">Educate Audience</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn" onclick="showStep('step-kpis')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-next-section')">Next</button>
+			</div>
+
+			<!-- Step 3: Industry/Business Type -->
+			<div class="form-step" id="step-industry" style="display: none;">
+				<h2>Industry/Business Type</h2>
+				<p>Select the industry or business type that best represents the project. This helps in tailoring the design recommendations to align with common standards and practices within your industry.</p>
+				<div class="options-container four-columns">
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-ecommerce" value="ecommerce">
+						<label for="industry-ecommerce">E-commerce</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-education" value="education">
+						<label for="industry-education">Education</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-healthcare" value="healthcare">
+						<label for="industry-healthcare">Healthcare</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-finance" value="finance">
+						<label for="industry-finance">Finance</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-retail" value="retail">
+						<label for="industry-retail">Retail</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-hospitality" value="hospitality">
+						<label for="industry-hospitality">Hospitality</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-real-estate" value="real-estate">
+						<label for="industry-real-estate">Real Estate</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-manufacturing" value="manufacturing">
+						<label for="industry-manufacturing">Manufacturing</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-technology" value="technology">
+						<label for="industry-technology">Technology</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-transportation" value="transportation">
+						<label for="industry-transportation">Transportation</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-telecommunications" value="telecommunications">
+						<label for="industry-telecommunications">Telecommunications</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-energy" value="energy">
+						<label for="industry-energy">Energy</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-entertainment" value="entertainment">
+						<label for="industry-entertainment">Entertainment</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-government" value="government">
+						<label for="industry-government">Government</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-nonprofit" value="nonprofit">
+						<label for="industry-nonprofit">Non-Profit</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-legal" value="legal">
+						<label for="industry-legal">Legal</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-pharmaceutical" value="pharmaceutical">
+						<label for="industry-pharmaceutical">Pharmaceutical</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-construction" value="construction">
+						<label for="industry-construction">Construction</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-automotive" value="automotive">
+						<label for="industry-automotive">Automotive</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="industry_type" id="industry-media" value="media">
+						<label for="industry-media">Media</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			<!-- Target Audience Section -->
+
+			<!-- Introduction to Target Audience Section -->
+			<div class="form-step" id="section-target-audience" style="display: none;">
+				<h2>Target Audience</h2>
+				<p>This section helps define the audience for the project, including demographic details and user personas.</p>
+				<button type="button" class="btn back-btn" onclick="showStep('step-stakeholder-goals')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-user-demographics')">Next</button>
+			</div>
+
+			<!-- Step 1: User Demographics -->
+			<div class="form-step" id="step-user-demographics" style="display: none;">
+				<h2>User Demographics</h2>
+				<p>Select the demographic details for the target audience:</p>
+				
+				<!-- Age Group -->
+				<div class="options-container">
+					<label for="age_group">Age Group:</label>
+					<div class="options-container six-columns">
+						<div class="option-box" onclick="handleOptionSelection('age_group', 'children')">
+							<input type="radio" name="age_group" id="age_group-children" value="children">
+							<label for="age-group-children">Children</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('age_group', 'teenagers')">
+							<input type="radio" name="age_group" id="age-group-teenagers" value="teenagers">
+							<label for="age-group-teenagers">Teenagers</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('age_group', 'young adults')">
+							<input type="radio" name="age_group" id="age-group-young_adults" value="young_adults">
+							<label for="age-group-young_adults">Young Adults</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('age_group', 'adults')">
+							<input type="radio" name="age_group" id="age-group-adults" value="adults">
+							<label for="age-group-adults">Adults</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('age_group', 'older adults')">
+							<input type="radio" name="age_group" id="age-group-older_adults" value="older_adults">
+							<label for="age-group-older_adults">Older Adults</label>
+						</div>
+					</div>
+					<input type="hidden" name="age_group" id="age_group" />
+				</div>
+
+				<!-- Occupation -->
+				<div class="options-container">
+					<label for="occupation">Occupation:</label>
+					<div class="options-container six-columns">
+						<div class="option-box" onclick="handleOptionSelection('occupation', 'student')">
+							<input type="radio" name="occupation" id="occupation-student" value="student">
+							<label for="occupation-student">Student</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('occupation', 'professional')">
+							<input type="radio" name="occupation" id="occupation-professional" value="professional">
+							<label for="occupation-professional">Professional</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('occupation', 'homemaker')">
+							<input type="radio" name="occupation" id="occupation-homemaker" value="homemaker">
+							<label for="occupation-homemaker">Homemaker</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('occupation', 'retired')">
+							<input type="radio" name="occupation" id="occupation-retired" value="retired">
+							<label for="occupation-retired">Retired</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('occupation', 'unemployed')">
+							<input type="radio" name="occupation" id="occupation-unemployed" value="unemployed">
+							<label for="occupation-unemployed">Unemployed</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('occupation', 'other')">
+							<input type="radio" name="occupation" id="occupation-other" value="other">
+							<label for="occupation-other">Other</label>
+						</div>
+					</div>
+					<input type="hidden" name="occupation" id="occupation" />
+				</div>
+
+				<!-- Location -->
+				<div class="options-container">
+					<label for="location">Location:</label>
+					<div class="options-container four-columns">
+						<div class="option-box" onclick="handleOptionSelection('location', 'urban')">
+							<input type="radio" name="location" id="location-urban" value="urban">
+							<label for="location-urban">Urban</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('location', 'suburban')">
+							<input type="radio" name="location" id="location-suburban" value="suburban">
+							<label for="location-suburban">Suburban</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('location', 'rural')">
+							<input type="radio" name="location" id="location-rural" value="rural">
+							<label for="location-rural">Rural</label>
+						</div>
+						<div class="option-box" onclick="handleOptionSelection('location', 'international')">
+							<input type="radio" name="location" id="location-international" value="international">
+							<label for="location-international">International</label>
+						</div>
+					</div>
+
+					<input type="hidden" name="location" id="location" />
+				</div>
+				<button type="button" class="btn back-btn" onclick="showStep('section-target-audience')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-user-personas')">Next</button>
+				
+
+			</div>
+			<!-- Step 2: User Personas -->
+			<div class="form-step" id="step-user-personas" style="display: none;">
+				<h2>User Personas</h2>
+				<p>Select the types of users who represent your target audience:</p>
+				
+				<div class="options-container">
+					<div class="option-box" onclick="document.getElementById('persona-consumers').click();">
+						<input type="checkbox" name="personas" id="persona-consumers" value="Consumers">
+						<label for="persona-consumers">Consumers</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-business').click();">
+						<input type="checkbox" name="personas" id="persona-business" value="Business Professionals">
+						<label for="persona-business">Business Professionals</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-students').click();">
+						<input type="checkbox" name="personas" id="persona-students" value="Students">
+						<label for="persona-students">Students</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-parents').click();">
+						<input type="checkbox" name="personas" id="persona-parents" value="Parents">
+						<label for="persona-parents">Parents</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-seniors').click();">
+						<input type="checkbox" name="personas" id="persona-seniors" value="Seniors (65+)">
+						<label for="persona-seniors">Seniors (65+)</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-teens').click();">
+						<input type="checkbox" name="personas" id="persona-teens" value="Teenagers">
+						<label for="persona-teens">Teenagers</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-remote-workers').click();">
+						<input type="checkbox" name="personas" id="persona-remote-workers" value="Remote Workers">
+						<label for="persona-remote-workers">Remote Workers</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-healthcare').click();">
+						<input type="checkbox" name="personas" id="persona-healthcare" value="Healthcare Providers">
+						<label for="persona-healthcare">Healthcare Providers</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-gamers').click();">
+						<input type="checkbox" name="personas" id="persona-gamers" value="Gamers">
+						<label for="persona-gamers">Gamers</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-tech-enthusiasts').click();">
+						<input type="checkbox" name="personas" id="persona-tech-enthusiasts" value="Tech Enthusiasts">
+						<label for="persona-tech-enthusiasts">Tech Enthusiasts</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-travelers').click();">
+						<input type="checkbox" name="personas" id="persona-travelers" value="Frequent Travelers">
+						<label for="persona-travelers">Frequent Travelers</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('persona-entrepreneurs').click();">
+						<input type="checkbox" name="personas" id="persona-entrepreneurs" value="Entrepreneurs">
+						<label for="persona-entrepreneurs">Entrepreneurs</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-user-demographics')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-user-preferences')">Next</button>
+			</div>
+
+			<!-- Step 3: User Preferences and Behaviors -->
+			<div class="form-step" id="step-user-preferences" style="display: none;">
+				<h2>User Preferences and Behaviors</h2>
+				<p>Select the general preferences and behaviors of the target audience:</p>
+				
+				<div class="options-container six-columns">
+					<div class="option-box" onclick="document.getElementById('preference-mobile').click();">
+						<input type="checkbox" name="user_preferences" id="preference-mobile" value="Mobile-First">
+						<label for="preference-mobile">Mobile-First</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('preference-social').click();">
+						<input type="checkbox" name="user_preferences" id="preference-social" value="Frequent Social Media Use">
+						<label for="preference-social">Frequent Social Media Use</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('preference-video').click();">
+						<input type="checkbox" name="user_preferences" id="preference-video" value="Video Content Preference">
+						<label for="preference-video">Prefers Video Content</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('preference-interactive').click();">
+						<input type="checkbox" name="user_preferences" id="preference-interactive" value="Interactive Elements">
+						<label for="preference-interactive">Engages with Interactive Elements</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('preference-minimalist').click();">
+						<input type="checkbox" name="user_preferences" id="preference-minimalist" value="Minimalist Design">
+						<label for="preference-minimalist">Prefers Minimalist Design</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('preference-news').click();">
+						<input type="checkbox" name="user_preferences" id="preference-news" value="News and Updates">
+						<label for="preference-news">Interested in News and Updates</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-user-personas')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-content-requirements')">Next</button>
+			</div>
+
+			<!-- Step 4: Technical Proficiency -->
+			<div class="form-step" id="step-technical-proficiency" style="display: none;">
+				<h2>Technical Proficiency</h2>
+				<p>Select the level of technical proficiency of your target audience. This helps ensure the design and functionality are accessible and suitable for users with varying degrees of technical experience, from beginners to advanced users.</p>
+				<div class="options-container three-columns">
+					<div class="option-box">
+						<input type="radio" name="technical_proficiency" id="proficiency-beginner" value="Beginner">
+						<label for="proficiency-beginner">Beginner</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="technical_proficiency" id="proficiency-intermediate" value="Intermediate">
+						<label for="proficiency-intermediate">Intermediate</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="technical_proficiency" id="proficiency-advanced" value="Advanced">
+						<label for="proficiency-advanced">Advanced</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+			
+			<!-- Step 5: Cognitive Load -->
+			<div class="form-step" id="step-cognitive-load" style="display: none;">
+				<h2>Cognitive Load</h2>
+				<p>Choose the cognitive load level best suited for your target audience. This will guide the design complexity, ensuring it aligns with users' ability to process information easily, whether a simpler interface or a more information-rich experience is needed.</p>
+				<div class="options-container two-columns">
+					<div class="option-box">
+						<input type="radio" name="cognitive_load" id="cognitive-high" value="High Cognitive Load">
+						<label for="cognitive-high">High Cognitive Load</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="cognitive_load" id="cognitive-low" value="Low Cognitive Load">
+						<label for="cognitive-low">Low Cognitive Load</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			<!-- Content Requirements Section -->
+
+			<!-- Introduction to Content Requirements Section -->
+			<div class="form-step" id="section-content-requirements" style="display: none;">
+				<h2>Content Requirements</h2>
+				<p>This section defines the types of content, tone, and structure that best suit the target audience and project objectives.</p>
+				<button type="button" class="btn back-btn" onclick="showStep('step-user-preferences')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-content-inventory')">Next</button>
+			</div>
+
+			<!-- Step 1: Content Type -->
+		<div class="form-step" id="step-content-type" style="display: none;">
+			<h2>Content Type</h2>
+			<p>Select the types of content that will be included on the site:</p>
+
+			<div class="options-container six-columns">
+				<div class="option-box">
+					<input type="radio" name="content_type" id="content-text" value="text">
+					<label for="content-text">Text-Heavy</label>
+				</div>
+				<div class="option-box">
+					<input type="radio" name="content_type" id="content-image" value="image">
+					<label for="content-image">Image-Centric</label>
+				</div>
+				<div class="option-box">
+					<input type="radio" name="content_type" id="content-video" value="video">
+					<label for="content-video">Video-Based</label>
+				</div>
+				<div class="option-box">
+					<input type="radio" name="content_type" id="content-interactive" value="interactive">
+					<label for="content-interactive">Interactive</label>
+				</div>
+				<div class="option-box">
+					<input type="radio" name="content_type" id="content-data-heavy" value="data-heavy">
+					<label for="content-data-heavy">Data-Heavy</label>
+				</div>
+				<div class="option-box">
+					<input type="radio" name="content_type" id="content-mixed-media" value="mixed-media">
+					<label for="content-mixed-media">Mixed Media</label>
+				</div>
+			</div>
+
+			<button type="button" class="btn back-btn" onclick="showStep('section-content-requirements')">Back</button>
+			<button type="button" class="btn next-btn" onclick="showStep('step-tone-voice')">Next</button>
+		</div>
+
+			<!-- Step 2: Tone and Voice -->
+			<div class="form-step" id="step-tone-voice" style="display: none;">
+				<h2>Tone and Voice</h2>
+				<p>Select the tone and voice that best suits the target audience:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('tone-professional').click();">
+						<input type="radio" name="tone" id="tone-professional" value="Professional">
+						<label for="tone-professional">Professional</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('tone-friendly').click();">
+						<input type="radio" name="tone" id="tone-friendly" value="Friendly">
+						<label for="tone-friendly">Friendly</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('tone-informative').click();">
+						<input type="radio" name="tone" id="tone-informative" value="Informative">
+						<label for="tone-informative">Informative</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('tone-entertaining').click();">
+						<input type="radio" name="tone" id="tone-entertaining" value="Entertaining">
+						<label for="tone-entertaining">Entertaining</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-content-inventory')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-content-structure')">Next</button>
+			</div>
+
+			<!-- Step 3: Content Structure -->
+			<div class="form-step" id="step-content-structure" style="display: none;">
+				<h2>Content Structure</h2>
+				<p>Choose the preferred structure for organizing the content:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('structure-categories').click();">
+						<input type="radio" name="content_structure" id="structure-categories" value="Categories and Subcategories">
+						<label for="structure-categories">Categories and Subcategories</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('structure-landing').click();">
+						<input type="radio" name="content_structure" id="structure-landing" value="Landing Pages for Key Topics">
+						<label for="structure-landing">Landing Pages for Key Topics</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('structure-single').click();">
+						<input type="radio" name="content_structure" id="structure-single" value="Single Page with Sections">
+						<label for="structure-single">Single Page with Sections</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('structure-blog').click();">
+						<input type="radio" name="content_structure" id="structure-blog" value="Blog Format">
+						<label for="structure-blog">Blog Format</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-tone-voice')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-functional-requirements')">Next</button>
+			</div>
+
+			<!-- Functional Requirements Section -->
+
+			<!-- Introduction to Functional Requirements Section -->
+			<div class="form-step" id="section-functional-requirements" style="display: none;">
+				<h2>Functional Requirements</h2>
+				<p>This section covers the main functionalities, specific interactions, and accessibility standards required for the website.</p>
+				<button type="button" class="btn back-btn" onclick="showStep('step-content-structure')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-core-features')">Next</button>
+			</div>
+
+			<!-- Step 1: Core Features -->
+			<div class="form-step" id="step-core-features" style="display: none;">
+				<h2>Core Features</h2>
+				<p>Select the main functionalities that the website will need:</p>
+
+				<div class="options-container five-columns">
+					<div class="option-box" onclick="document.getElementById('feature-cart').click();">
+						<input type="checkbox" name="core_features" id="feature-cart" value="Shopping Cart">
+						<label for="feature-cart">Shopping Cart</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('feature-login').click();">
+						<input type="checkbox" name="core_features" id="feature-login" value="Login Functionality">
+						<label for="feature-login">Login Functionality</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('feature-search').click();">
+						<input type="checkbox" name="core_features" id="feature-search" value="Search Feature">
+						<label for="feature-search">Search Feature</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('feature-forms').click();">
+						<input type="checkbox" name="core_features" id="feature-forms" value="Forms (Contact, Sign-Up)">
+						<label for="feature-forms">Forms (Contact, Sign-Up)</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('feature-gallery').click();">
+						<input type="checkbox" name="core_features" id="feature-gallery" value="Image/Video Gallery">
+						<label for="feature-gallery">Image/Video Gallery</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('section-functional-requirements')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-interaction-requirements')">Next</button>
+			</div>
+
+			<!-- Step 2: Interaction Requirements -->
+			<div class="form-step" id="step-interaction-requirements" style="display: none;">
+				<h2>Interaction Requirements</h2>
+				<p>Specify any specific interactions required for the website:</p>
+
+				<div class="options-container five-columns">
+					<div class="option-box" onclick="document.getElementById('interaction-none').click();">
+						<input type="checkbox" name="interaction_requirements" id="interaction-none" value="None">
+						<label for="interaction-none">None</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('interaction-animations').click();">
+						<input type="checkbox" name="interaction_requirements" id="interaction-animations" value="Animations">
+						<label for="interaction-animations">Animations</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('interaction-hover').click();">
+						<input type="checkbox" name="interaction_requirements" id="interaction-hover" value="Hover Effects">
+						<label for="interaction-hover">Hover Effects</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('interaction-feedback').click();">
+						<input type="checkbox" name="interaction_requirements" id="interaction-feedback" value="Feedback on Actions">
+						<label for="interaction-feedback">Feedback on Actions</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('interaction-parallax').click();">
+						<input type="checkbox" name="interaction_requirements" id="interaction-parallax" value="Parallax Scrolling">
+						<label for="interaction-parallax">Parallax Scrolling</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('interaction-carousel').click();">
+						<input type="checkbox" name="interaction_requirements" id="interaction-carousel" value="Carousel/Slideshow">
+						<label for="interaction-carousel">Carousel/Slideshow</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-core-features')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-accessibility-needs')">Next</button>
+			</div>
+
+			<!-- Step 3: Accessibility Needs -->
+			<div class="form-step" id="step-accessibility-needs" style="display: none;">
+				<h2>Accessibility Needs</h2>
+				<p>Select specific accessibility standards to meet:</p>
+
+				<div class="options-container five-columns">
+					<div class="option-box" role="radio" aria-checked="false">
+						<input type="radio" name="accessibility_needs" id="accessibility-needs-none" value="None">
+						<label for="accessibility-needs-none">None</label>
+					</div>
+					<div class="option-box" role="radio" tabindex="0" onclick="document.getElementById('accessibility-wcag').click();" aria-labelledby="wcag-label">
+						<input type="radio" name="accessibility_needs" id="accessibility-wcag" value="WCAG Compliance">
+						<label for="accessibility-wcag" id="wcag-label">WCAG Compliance</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('accessibility-contrast').click();">
+						<input type="radio" name="accessibility_needs" id="accessibility-contrast" value="High Contrast Mode">
+						<label for="accessibility-contrast">High Contrast Mode</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('accessibility-alt').click();">
+						<input type="radio" name="accessibility_needs" id="accessibility-alt" value="Alternative Text for Images">
+						<label for="accessibility-alt">Alternative Text for Images</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('accessibility-caption').click();">
+						<input type="radio" name="accessibility_needs" id="accessibility-caption" value="Closed Captioning for Videos">
+						<label for="accessibility-caption">Closed Captioning for Videos</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('accessibility-keyboard').click();">
+						<input type="radio" name="accessibility_needs" id="accessibility-keyboard" value="Keyboard Navigation">
+						<label for="accessibility-keyboard">Keyboard Navigation</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-interaction-requirements')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-branding-visual-style')">Next</button>
+			</div>
+
+			<!-- Step 4: Visual Impairment -->
+			<div class="form-step" id="step-visual-impairment" style="display: none;">
+				<h2>Visual Impairment</h2>
+				<p>Select the specific visual impairments your design should accommodate. This will help tailor accessibility features like color contrast, alternative text, and layout adjustments to support a more inclusive user experience.</p>
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('impairment-none').click();" >
+						<input type="radio" name="visual_impairment" id="impairment-none" value="None">
+						<label for="impairment-none">None</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('impairment-color-blindness').click();">
+						<input type="radio" name="visual_impairment" id="impairment-color-blindness" value="Color Blindness">
+						<label for="impairment-color-blindness">Color Blindness</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('impairment-low-vision').click();">
+						<input type="radio" name="visual_impairment" id="impairment-low-vision" value="Low Vision">
+						<label for="impairment-low-vision">Low Vision</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('impairment-blindness').click();">
+						<input type="radio" name="visual_impairment" id="impairment-blindness" value="Blindness">
+						<label for="impairment-blindness">Blindness</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			<!-- Step 5: Motor Impairment -->
+			<div class="form-step" id="step-motor-impairment" style="display: none;">
+				<h2>Motor Impairment</h2>
+				<p>Specify any motor impairments to consider. This will ensure the design includes features such as keyboard navigation, voice command compatibility, and larger touch targets to enhance accessibility for users with limited motor skills.</p>
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('motor-none').click();">
+						<input type="radio" name="motor_impairment" id="motor-none" value="None">
+						<label for="motor-none">None</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('motor-keyboard').click();">
+						<input type="radio" name="motor_impairment" id="motor-keyboard" value="Full Keyboard Support">
+						<label for="motor-keyboard">Full Keyboard Support</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('motor-voice').click();">
+						<input type="radio" name="motor_impairment" id="motor-voice" value="Voice Command Control">
+						<label for="motor-voice">Voice Command Control</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('motor-touch').click();">
+						<input type="radio" name="motor_impairment" id="motor-touch" value="Large Touch Targets">
+						<label for="motor-touch">Large Touch Targets</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			<!-- Step 6: Hearing Impairment -->
+			<div class="form-step" id="step-hearing-impairment" style="display: none;">
+				<h2>Hearing Impairment</h2>
+				<p>Select any hearing impairments to consider. This will help ensure that the design provides alternative ways to access audio content, such as captions or text alternatives, enhancing accessibility for users with hearing limitations.</p>
+				<div class="options-container two-columns">
+					<div class="option-box" onclick="document.getElementById('hearing-none').click();">
+						<input type="radio" name="hearing_impairment" id="hearing-none" value="None">
+						<label for="hearing-none">None</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('hearing-audio-alternatives').click();">
+						<input type="radio" name="hearing_impairment" id="hearing-audio-alternatives" value="Audio Alternatives">
+						<label for="hearing-audio-alternatives">Audio Alternatives</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+				
+			<!-- Step 7: Accessibility Preferences -->
+			<div class="form-step" id="step-accessibility-preferences" style="display: none;">
+				<h2>Additional Accessibility Preferences</h2>
+				<p>Choose any additional accessibility preferences that should be included in the design. These options help create a more inclusive experience by addressing specific needs such as compatibility with screen readers or reduced animations.</p>
+				<div class="options-container three-columns">
+					<div class="option-box" onclick="document.getElementById('add-accessibility-none').click();">
+						<input type="radio" name="accessibility_preferences" id="add-accessibility-none" value="None">
+						<label for="add-accessibility-none">None</label>
+					</div>
+					<div class="option-box"  onclick="document.getElementById('accessibility-screen-reader').click();">
+						<input type="radio" name="accessibility_preferences" id="accessibility-screen-reader" value="screen-reader">
+						<label for="accessibility-screen-reader">Screen Reader Compatibility</label>
+					</div>
+					<div class="option-box"  onclick="document.getElementById('accessibility-reduce-animations').click();">
+						<input type="radio" name="accessibility_preferences" id="accessibility-reduce-animations" value="reduce-animations">
+						<label for="accessibility-reduce-animations">Reduce Animations</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			<!-- Branding and Visual Style Section -->
+
+			<!-- Introduction to Branding and Visual Style Section -->
+			<div class="form-step" id="section-branding-visual-style" style="display: none;">
+				<h2>Branding and Visual Style</h2>
+				<p>This section helps define the visual and branding elements that should be considered for the design.</p>
+				<button type="button" class="btn back-btn" onclick="showStep('step-accessibility-needs')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-brand-guidelines')">Next</button>
+			</div>
+
+			<!-- Step 1: Brand Guidelines -->
+			<div class="form-step" id="step-brand-guidelines" style="display: none;">
+				<h2>Brand Guidelines</h2>
+				<p>Select the branding elements to be used in the design:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('guideline-colors').click();">
+						<input type="checkbox" name="brand_guidelines" id="guideline-colors" value="Brand Colors">
+						<label for="guideline-colors">Brand Colors</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('guideline-fonts').click();">
+						<input type="checkbox" name="brand_guidelines" id="guideline-fonts" value="Brand Fonts">
+						<label for="guideline-fonts">Brand Fonts</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('guideline-logo').click();">
+						<input type="checkbox" name="brand_guidelines" id="guideline-logo" value="Logo Usage">
+						<label for="guideline-logo">Logo Usage</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('guideline-graphics').click();">
+						<input type="checkbox" name="brand_guidelines" id="guideline-graphics" value="Graphic Elements">
+						<label for="guideline-graphics">Graphic Elements</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('section-branding-visual-style')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-mood-feel')">Next</button>
+			</div>
+
+			<!-- Step 1: Colour Code -->
+			<div class="form-step" id="step-color-code" style="display: none;">
+				<h2>Color Code</h2>
+				<p>Enter a specific color code to ensure consistency with your branding or design preferences. You can use Hex or RGB formats to set the base color for your design elements.</p>
+				<div class="color-picker-container">
+					<!-- <input type="text" name="color_code" placeholder="Enter color code (Hex or RGB)"> -->
+					<label for="colorPicker">Choose a color:</label>
+					<input type="color" id="colorPicker" name="colorPicker" value="#ffffff">
+				</div>
+
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+			
+			<!-- Step 2: Design Preferences -->
+			<div class="form-step" id="step-design-preferences" style="display: none;">
+				<h2>Design Preferences</h2>
+				<p>Select the overall design style that best aligns with your brand and audience. These preferences help define the visual tone and aesthetic for your project.</p>
+				<div class="options-container four-columns">
+					<div class="option-box">
+						<input type="radio" name="design_preferences" id="preferences-minimalist" value="Minimalist Design">
+						<label for="preferences-minimalist">Minimalist Design</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="design_preferences" id="preferences-bold" value="Bold and Vibrant Design">
+						<label for="preferences-bold">Bold and Vibrant Design</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="design_preferences" id="preferences-classical" value="Classical And Traditional">
+						<label for="preferences-classical">Classical and Traditional</label>
+					</div>
+					<div class="option-box">
+						<input type="radio" name="design_preferences" id="preferences-formal" value="Professional and Formal">
+						<label for="preferences-formal">Professional and Formal</label>
+					</div>
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			<!-- Step 3: Mood and Feel -->
+			<div class="form-step" id="step-mood-feel" style="display: none;">
+				<h2>Mood and Feel</h2>
+				<p>Choose the emotions the design should evoke:</p>
+
+				<div class="options-container five-columns">
+					<div class="option-box" onclick="document.getElementById('mood-professional').click();">
+						<input type="radio" name="mood_feel" id="mood-professional" value="Professional">
+						<label for="mood-professional">Professional</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('mood-friendly').click();">
+						<input type="radio" name="mood_feel" id="mood-friendly" value="Friendly">
+						<label for="mood-friendly">Friendly</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('mood-fun').click();">
+						<input type="radio" name="mood_feel" id="mood-fun" value="Fun">
+						<label for="mood-fun">Fun</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('mood-modern').click();">
+						<input type="radio" name="mood_feel" id="mood-modern" value="Modern">
+						<label for="mood-modern">Modern</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('mood-minimalist').click();">
+						<input type="radio" name="mood_feel" id="mood-minimalist" value="Minimalist">
+						<label for="mood-minimalist">Minimalist</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-brand-guidelines')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-imagery')">Next</button>
+			</div>
+
+			<!-- Step 4: Imagery and Iconography -->
+			<div class="form-step" id="step-imagery" style="display: none;">
+				<h2>Imagery and Iconography</h2>
+				<p>Select the preferred style of images and icons:</p>
+
+				<div class="options-container five-columns">
+					<div class="option-box" onclick="document.getElementById('imagery-realistic').click();">
+						<input type="radio" name="imagery_iconography" id="imagery-realistic" value="Realistic Images">
+						<label for="imagery-realistic">Realistic Images</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('imagery-illustrative').click();">
+						<input type="radio" name="imagery_iconography" id="imagery-illustrative" value="Illustrative Images">
+						<label for="imagery-illustrative">Illustrative Images</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('imagery-icons').click();">
+						<input type="radio" name="imagery_iconography" id="imagery-icons" value="Icons">
+						<label for="imagery-icons">Icons</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('imagery-abstract').click();">
+						<input type="radio" name="imagery_iconography" id="imagery-abstract" value="Abstract Imagery">
+						<label for="imagery-abstract">Abstract Imagery</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('imagery-minimal').click();">
+						<input type="radio" name="imagery_iconography" id="imagery-minimal" value="Minimalistic Imagery">
+						<label for="imagery-minimal">Minimalistic Imagery</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-mood-feel')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-technical-specifications')">Next</button>
+			</div>
+
+			<!-- Technical Specifications Section -->
+			<!-- Introduction to Technical Specifications Section -->
+			<div class="form-step" id="section-technical-specifications" style="display: none;">
+				<h2>Technical Specifications</h2>
+				<p>This section covers the technical requirements for platform compatibility and device compatibility.</p>
+				<button type="button" class="btn back-btn" onclick="showStep('step-imagery')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-platform-requirements')">Next</button>
+			</div>
+
+			<!-- Step 1: Platform Requirements -->
+			<div class="form-step" id="step-platform-requirements" style="display: none;">
+				<h2>Platform Requirements</h2>
+				<p>Select the primary platform requirements for the website or application:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('device-mobile').click();">
+						<input type="radio" name="device_type" id="device-mobile" value="Mobile">
+						<label for="device-mobile">Mobile</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('device-tablet').click();">
+						<input type="radio" name="device_type" id="device-tablet" value="Tablet">
+						<label for="device-tablet">Tablet</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('device-desktop').click();">
+						<input type="radio" name="device_type" id="device-desktop" value="Desktop">
+						<label for="device-desktop">Desktop</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('device-web').click();">
+						<input type="radio" name="device_type" id="device-web" value="Web">
+						<label for="device-web">Web</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('section-technical-specifications')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-device-compatibility')">Next</button>
+			</div>
+
+			<!-- Step 2: Device Compatibility -->
+			<div class="form-step" id="step-device-compatibility" style="display: none;">
+				<h2>Device Compatibility</h2>
+				<p>Select the devices the website or application should be compatible with:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('device-compatibility-mobile').click();">
+						<input type="checkbox" name="device_compatibility" id="device-compatibility-mobile" value="Mobile">
+						<label for="device-compatibility-mobile">Mobile</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('device-compatibility-tablet').click();">
+						<input type="checkbox" name="device_compatibility" id="device-compatibility-tablet" value="Tablets">
+						<label for="device-compatibility-tablet">Tablets</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('device-compatibility-desktop').click();">
+						<input type="checkbox" name="device_compatibility" id="device-compatibility-desktop" value="Desktops">
+						<label for="device-compatibility-desktop">Desktops</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('device-compatibility-web').click();">
+						<input type="checkbox" name="device_compatibility" id="device-compatibility-web" value="Web">
+						<label for="device-compatibility-web">Web</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-platform-requirements')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-browser-compatibility')">Next</button>
+			</div>
+
+			<!-- Step 3: Operating System -->
+			<div class="form-step" id="step-operating-system" style="display: none;">
+				<h2>Operating System</h2>
+				<p>Select the primary operating system that your application or website needs to support. This ensures optimal performance and compatibility for your target audience.</p>
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('os-ios').click();">
+						<input type="radio" name="operating_system" id="os-ios" value="iOs">
+						<label for="os-ios">iOS</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('os-android').click();">
+						<input type="radio" name="operating_system" id="os-android" value="Android">
+						<label for="os-android">Android</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('os-windows').click();">
+						<input type="radio" name="operating_system" id="os-windows" value="Windows">
+						<label for="os-windows">Windows</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('os-macos').click();">
+						<input type="radio" name="operating_system" id="os-macos" value="MacOS">
+						<label for="os-macos">MacOS</label>
+					</div>
+
+				</div>
+				<button type="button" class="btn back-btn">Back</button>
+				<button type="button" class="btn next-btn">Next</button>
+			</div>
+
+			
+			<!-- Step 4: Browser Compatibility -->
+			<div class="form-step" id="step-browser-compatibility" style="display: none;">
+				<h2>Browser Compatibility</h2>
+				<p>Select the browsers that should be supported:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('browser-chrome').click();">
+						<input type="checkbox" name="browser_compatibility" id="browser-chrome" value="Google Chrome">
+						<label for="browser-chrome">Google Chrome</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('browser-firefox').click();">
+						<input type="checkbox" name="browser_compatibility" id="browser-firefox" value="Mozilla Firefox">
+						<label for="browser-firefox">Mozilla Firefox</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('browser-safari').click();">
+						<input type="checkbox" name="browser_compatibility" id="browser-safari" value="Safari">
+						<label for="browser-safari">Safari</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('browser-edge').click();">
+						<input type="checkbox" name="browser_compatibility" id="browser-edge" value="Microsoft Edge">
+						<label for="browser-edge">Microsoft Edge</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-device-compatibility')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-user-experience')">Next</button>
+			</div>
+
+			<!-- User Experience Considerations Section -->
+
+			<!-- Introduction to User Experience Considerations Section -->
+			<div class="form-step" id="section-user-experience" style="display: none;">
+				<h2>User Experience Considerations</h2>
+				<p>This section addresses the overall user journey and interaction design considerations.</p>
+				<button type="button" class="btn back-btn" onclick="showStep('step-browser-compatibility')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-user-flow')">Next</button>
+			</div>
+
+			<!-- Step 1: User Flow and Navigation -->
+			<div class="form-step" id="step-user-flow" style="display: none;">
+				<h2>User Flow and Navigation</h2>
+				<p>Select the main navigation style and user flow requirements:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('flow-linear').click();">
+						<input type="radio" name="user_flow" id="flow-linear" value="Linear Navigation">
+						<label for="flow-linear">Linear Navigation</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('flow-hierarchical').click();">
+						<input type="radio" name="user_flow" id="flow-hierarchical" value="Hierarchical Navigation">
+						<label for="flow-hierarchical">Hierarchical Navigation</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('flow-interactive').click();">
+						<input type="radio" name="user_flow" id="flow-interactive" value="Interactive Navigation">
+						<label for="flow-interactive">Interactive Navigation</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('flow-freeform').click();">
+						<input type="radio" name="user_flow" id="flow-freeform" value="Freeform Navigation">
+						<label for="flow-freeform">Freeform Navigation</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('section-user-experience')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-accessibility-considerations')">Next</button>
+			</div>
+
+		
+			<!-- Step 2: Call to Actions (CTAs) Placement -->
+			<div class="form-step" id="step-call-to-actions" style="display: none;">
+				<h2>Call to Actions (CTAs)</h2>
+				<p>Specify the primary actions you want users to take and where they should be placed:</p>
+
+				<div class="options-container four-columns">
+					<div class="option-box" onclick="document.getElementById('cta-homepage').click();">
+						<input type="radio" name="cta_placement" id="cta-homepage" value="Homepage CTA">
+						<label for="cta-homepage">Homepage CTA</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('cta-footer').click();">
+						<input type="radio" name="cta_placement" id="cta-footer" value="Footer CTA">
+						<label for="cta-footer">Footer CTA</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('cta-sidebar').click();">
+						<input type="radio" name="cta_placement" id="cta-sidebar" value="Sidebar CTA">
+						<label for="cta-sidebar">Sidebar CTA</label>
+					</div>
+					<div class="option-box" onclick="document.getElementById('cta-popup').click();">
+						<input type="radio" name="cta_placement" id="cta-popup" value="Popup or Modal CTA">
+						<label for="cta-popup">Popup or Modal CTA</label>
+					</div>
+				</div>
+
+				<button type="button" class="btn back-btn" onclick="showStep('step-accessibility-considerations')">Back</button>
+				<button type="button" class="btn next-btn" onclick="showStep('step-review-submit')">Next</button>
+			</div>
+
+			<!-- Review and Submit Section -->
+
+			<!-- Step: Review and Submit -->
+			<div class="form-step" id="step-review-submit" style="display: none;">
+				<h2>Review Your Selections</h2>
+				<p>If you need to make any changes, use the Back button to navigate to previous sections.</p>
+
+				<!-- Placeholder for dynamically generated selections summary -->
+				<div id="selections-summary">
+					<!-- JavaScript will populate the user's selections here -->
+				</div>
+
+				<!-- Navigation buttons -->
+				<button type="button" class="btn back-btn" onclick="showStep('step-call-to-actions')">Back</button>
+				<button type="submit" class="btn">Submit</button>
+			</div>
+	
+		</form>
+	</div>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>

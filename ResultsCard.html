@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="DesignGenie Dashboard">
+    <meta name="keywords" content="Design, Dashboard, Recommendations">
+    <title>DesignGenie Dashboard</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+    <!-- External CSS and Fonts -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="home.html" class="logo">DesignGenie</a>
+            <nav role="navigation">
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <!-- <h2>DesignGenie</h2> -->
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" id="overviewLink">Overview</a></li>
+                <li><a href="#" id="recommendationsLink">Design Recommendations</a></li>
+                <!-- <li><a href="#">Statistics</a></li> -->
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="dashboard-container">
+        <!-- OVERVIEW SECTION -->
+        <div id="overviewSection">
+            <div class="dashboard-title">
+                <h1>Project Overview</h1>
+                <div class="project-actions">
+                    <button id="downloadPDF">Download as PDF</button>
+                    <button id="emailLink" target="_blank">Share</button>
+                </div>
+            </div>
+            
+            <section class="overview-grid">
+                <!-- Project Objectives -->
+                <div class="grid-item">
+                    <h3>Project Objectives</h3>
+                    <p>Primary Goal: <span id="primary-goal"></span></p>
+                    <p>KPIs: <span id="kpis"></span></p>
+                    <p>Stakeholder Goals: <span id="stakeholder-goals"></span></p>
+                    <p>Industry Type: <span id="industry-type"></span></p>
+                </div>
+    
+            <!-- User Demographics -->
+            <div class="grid-item">
+                <h3>User Demographics</h3>
+                <p>Age Group: <span id="age_group"></span></p>
+                <p>Occupation: <span id="occupation"></span></p>
+                <p>Location: <span id="location"></span></p>
+            </div>
+    
+            <!-- User Personas and Preferences -->
+            <div class="grid-item">
+                <h3>User Personas and Preferences</h3>
+                <p>Personas: <span id="user-personas"></span></p>
+                <p>Preferences: <span id="user-preferences"></span></p>
+                <p>Technical Proficiency: <span id="technical-proficiency"></span></p>
+                <p>Cognitive Load: <span id="cognitive-load"></span></p>
+            </div>
+    
+            <!-- Content Requirements -->
+            <div class="grid-item">
+                <h3>Content Requirements</h3>
+                <p>Content Type: <span id="content-type"></span></p>
+                <p>Tone and Voice: <span id="tone-voice"></span></p>
+                <p>Content Structure: <span id="content-structure"></span></p>
+            </div>
+    
+            <!-- Accessibility Requirements -->
+            <div class="grid-item">
+                <h3>Accessibility Requirements</h3>
+                <p>Visual Impairment: <span id="visual-impairment"></span></p>
+                <p>Motor Impairment: <span id="motor-impairment"></span></p>
+                <p>Hearing Impairment: <span id="hearing-impairment"></span></p>
+                <p>Additional Preferences: <span id="additional-accessibility"></span></p>
+                <p>Accessibility Needs: <span id="accessibility_needs"></span></p>
+            </div>
+    
+            <!-- Branding and Visual Style -->
+            <div class="grid-item">
+                <h3>Branding and Visual Style</h3>
+                <p>Brand Guidelines: <span id="brand-guidelines"></span></p>
+                <p>Design Preferences: <span id="design-preferences"></span></p>
+                <p>Mood and Feel: <span id="mood-feel"></span></p>
+                <p>Imagery and Iconography: <span id="imagery-iconography"></span></p>
+                <div class="color-palette">
+                    <h4>Color Palette</h4>
+                    <div class="swatches">
+                        <div class="color-swatch" id="color1"></div>
+                        <div class="color-swatch" id="color2"></div>
+                        <div class="color-swatch" id="color3"></div>
+                        <div class="color-swatch" id="color4"></div>
+                        <div class="color-swatch" id="color5"></div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Technical Specifications -->
+            <div class="grid-item">
+                <h3>Technical Specifications</h3>
+                <p>Device Type: <span id="device-type"></span></p>
+                <p>Operating System: <span id="operating-system"></span></p>
+                <p>Device Compatibility: <span id="device-compatibility"></span></p>
+                <p>Browser Compatibility: <span id="browser-compatibility"></span></p>
+            </div>
+    
+            <!-- User Interaction and Navigation -->
+            <div class="grid-item">
+                <h3>User Interaction and Navigation</h3>
+                <p>User Flow: <span id="user-flow"></span></p>
+                <p>Core Features: <span id="core_features"></span></p>
+                <p>Interaction Type: <span id="interaction-type"></span></p>
+                <p>Navigation Type: <span id="navigation-type"></span></p>
+                <p>Call to Actions (CTAs): <span id="cta-placement"></span></p>
+            </div>
+        </section>
+    
+        <!-- Recommendations Section -->
+        <section class="recommendations-section">
+            <h2>Design Recommendations</h2>
+            <div id="recommendations-by-category">
+                <!-- Recommendations will be dynamically populated here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript to Populate Data and Download PDF -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            const userInputs = JSON.parse(localStorage.getItem("userInputs")) || {};
+            const recommendations = JSON.parse(localStorage.getItem("recommendations")) || [];
+
+    console.log("Retrieved user inputs:", userInputs);
+
+    if (!userInputs || Object.keys(userInputs).length === 0) {
+        console.error("No user inputs found in localStorage");
+        document.querySelector(".dashboard-title").innerHTML += 
+            "<p class='error'>No user inputs found. Please complete the form.</p>";
+        return;
+    }
+
+    // Helper function to safely format values
+    const formatValue = (value) => {
+        if (!value) return 'N/A';
+        if (Array.isArray(value)) return value.join(", ");
+        return value;
+    };
+
+    // Helper function to populate field with proper error handling
+    const populateField = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = formatValue(value);
+        } else {
+            console.warn(`Element with id '${id}' not found`);
+        }
+    };
+
+    // Fix field mappings
+    const fieldMappings = {
+        // Project Objectives
+        "primary-goal": "objectives", // Changed from primary_goal
+        "kpis": "kpis",
+        "stakeholder-goals": "objectives",
+        "industry-type": "industry_type",
+
+        // User Demographics
+        "age_group": "age_group",
+        "occupation": "occupation",
+        "location": "location",
+
+        // User Personas and Preferences
+        "user-personas": "personas",
+        "user-preferences": "user_preferences",
+        "technical-proficiency": "technical_proficiency",
+        "cognitive-load": "cognitive_load",
+
+        // Content Requirements
+        "content-type": "content_type",
+        "tone-voice": "tone",
+        "content-structure": "content_structure",
+
+        // Accessibility Requirements
+        "accessibility_needs" : "accessibility_needs",
+        "visual-impairment": "visual_impairment",
+        "motor-impairment": "motor_impairment",
+        "hearing-impairment": "hearing_impairment",
+        "additional-accessibility": "accessibility_preferences",
+
+        // Branding and Visual Style
+        "brand-guidelines": "brand_guidelines",
+        "design-preferences": "design_preferences",
+        "mood-feel": "mood_feel",
+        "imagery-iconography": "imagery_iconography",
+
+        // Technical Specifications
+        "device-type": "device_type",
+        "operating-system": "operating_system",
+        "device-compatibility": "device_compatibility",
+        "browser-compatibility": "browser_compatibility",
+
+        // User Interaction and Navigation
+        "user-flow": "user_flow",
+        "core_features" : "core_features",
+        "interaction-type": "interaction_requirements",
+        "navigation-type": "user_flow",
+        "cta-placement": "cta_placement"
+    };
+
+    // Populate all fields based on mappings
+    Object.entries(fieldMappings).forEach(([elementId, inputProperty]) => {
+        populateField(elementId, userInputs[inputProperty]);
+    });
+
+    // Log any fields that weren't found
+    Object.keys(userInputs).forEach(key => {
+        if (!Object.values(fieldMappings).includes(key)) {
+            console.log(`Unmapped field in userInputs: ${key}`);
+        }
+    });
+
+    // Handle color palette generation
+const generateColorPalette = (baseColor) => {
+    if (!baseColor) {
+        console.error("Base color is required.");
+        return;
+    }
+
+    const colors = [
+        baseColor, // Main color
+        adjustBrightness(baseColor, 20), // Lighter variant
+        adjustBrightness(baseColor, -20), // Darker variant
+        generateComplementaryColor(baseColor), // Complementary
+    ];
+
+    colors.forEach((color, index) => {
+        const swatch = document.getElementById(`color${index + 1}`);
+        if (swatch) {
+            swatch.style.backgroundColor = color;
+            swatch.setAttribute("title", color); // Add tooltip with color value
+        }
+    });
+};
+
+// Color adjustment helpers
+function adjustBrightness(hex, percent) {
+    hex = hex.replace(/^#/, '');
+    if (hex.length === 3) {
+        hex = hex.split('').map(h => h + h).join('');
+    }
+
+    const num = parseInt(hex, 16);
+    let r = (num >> 16) + Math.round(255 * (percent / 100));
+    let g = ((num >> 8) & 0x00FF) + Math.round(255 * (percent / 100));
+    let b = (num & 0x0000FF) + Math.round(255 * (percent / 100));
+
+    r = Math.min(255, Math.max(0, r));
+    g = Math.min(255, Math.max(0, g));
+    b = Math.min(255, Math.max(0, b));
+
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
+}
+
+function generateComplementaryColor(hex) {
+    hex = hex.replace(/^#/, '');
+    if (hex.length === 3) {
+        hex = hex.split('').map(h => h + h).join('');
+    }
+
+    const num = parseInt(hex, 16);
+    const r = 255 - (num >> 16);
+    const g = 255 - ((num >> 8) & 0x00FF);
+    const b = 255 - (num & 0x0000FF);
+
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
+}
+
+    // Initialize color palette
+    generateColorPalette(userInputs.color_code);
+
+
+    const displayRecommendations = (recommendations) => {
+        const container = document.getElementById("recommendations-by-category");
+        if (!container) return;
+        container.innerHTML = "";
+
+        let displayedCount = 20; // Start by displaying the top 20 recommendations
+
+        // Sort recommendations by similarity score
+        const sortedRecs = recommendations.sort((a, b) => b.similarity_score - a.similarity_score);
+
+        // Helper function to display a specific number of recommendations
+        const renderRecommendations = (count) => {
+            container.innerHTML = ""; // Clear the container
+            const topRecs = sortedRecs.slice(0, count);
+
+            // Group by section
+            const bySection = topRecs.reduce((acc, rec) => {
+                const section = rec.section || "General"; // Default to "General" if section is missing
+                if (!acc[section]) acc[section] = [];
+                acc[section].push(rec);
+                return acc;
+            }, {});
+
+            // Sort sections by highest relevance score within each section
+            const sortedSections = Object.entries(bySection).sort((a, b) => {
+                const aMaxScore = Math.max(...a[1].map(r => r.similarity_score || 0));
+                const bMaxScore = Math.max(...b[1].map(r => r.similarity_score || 0));
+                return bMaxScore - aMaxScore;
+            });
+
+        // Display grouped recommendations by section
+        sortedSections.forEach(([section, recs]) => {
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "category-section";
+            sectionDiv.innerHTML = `
+                <h3 class="category-title">${section}</h3>
+                <div class="recommendations-grid">
+                    ${recs.map(rec => {
+                        let details = rec.details || "";
+                        let takeaways = "";
+
+                        if (details.includes("Takeaways:")) {
+                            const parts = details.split("Takeaways:");
+                            details = parts[0].trim();
+                            takeaways = parts[1].trim();
+                        }
+
+                    return `
+                        <div class="recommendation-card bg-white rounded-lg shadow p-4 mb-4">
+                            <div class="metadata mb-3 text-sm text-gray-600">
+                                <span class="mr-4"><strong>Category:</strong> ${rec.category || "General"}</span>
+                                ${rec.subsection ? `<span><strong>Subsection:</strong> ${rec.subsection}</span>` : ''}
+                            </div>
+                            
+                            <h4 class="text-lg font-semibold mb-2">${rec.guideline}</h4>
+                            ${details ? `<p class="mb-3">${details}</p>` : ""}
+                            ${takeaways ? `
+                                <div class="bg-blue-50 p-3 rounded">
+                                    Takeaway: ${takeaways}
+                                </div>
+                            ` : ""}
+                        </div>
+                    `;
+                }).join("")}
+            `;
+            container.appendChild(sectionDiv);
+        });
+
+        // Update recommendation analysis
+        updateAnalysis(count);
+    };
+
+    // Function to update the analysis section
+    const updateAnalysis = (count) => {
+        const analysis = document.getElementById("recommendation-analysis");
+        if (!analysis) return;
+
+        const totalRecommendations = count;
+        const averageSimilarityScore = (
+            sortedRecs.slice(0, count).reduce((sum, rec) => sum + rec.similarity_score, 0) /
+            totalRecommendations
+        ).toFixed(2);
+        const categoriesCovered = [...new Set(sortedRecs.slice(0, count).map(rec => rec.category || "Uncategorized"))];
+        const sectionsCovered = [...new Set(sortedRecs.slice(0, count).map(rec => rec.section || "General"))];
+
+        analysis.innerHTML = `
+            <h3 class="text-lg font-bold mb-4">Recommendation Analysis</h3>
+            <ul class="list-disc pl-5">
+                <li><strong>Total Recommendations:</strong> ${totalRecommendations}</li>
+                <li><strong>Average Similarity Score:</strong> ${averageSimilarityScore}</li>
+                <li><strong>Categories Covered:</strong> ${categoriesCovered.join(", ")}</li>
+                <li><strong>Sections Covered:</strong> ${sectionsCovered.join(", ")}</li>
+            </ul>
+        `;
+    };
+
+    // Add a "Load More" button
+    const loadMoreBtn = document.createElement("button");
+    loadMoreBtn.textContent = "Load More";
+    loadMoreBtn.className = "load-more-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4";
+    loadMoreBtn.addEventListener("click", () => {
+        displayedCount += 20; // Increase the number of recommendations displayed
+        renderRecommendations(displayedCount);
+
+        // Hide the button if all recommendations are displayed
+        if (displayedCount >= recommendations.length) {
+            loadMoreBtn.style.display = "none";
+        }
+        
+    });
+
+    // Render initial recommendations and button
+    renderRecommendations(displayedCount);
+    container.appendChild(loadMoreBtn);
+
+    // Add recommendation analysis container
+    const analysisDiv = document.createElement("div");
+    analysisDiv.id = "recommendation-analysis";
+    analysisDiv.className = "recommendation-analysis mt-8 p-4 bg-gray-100 rounded-lg shadow";
+    container.appendChild(analysisDiv);
+
+    // Update analysis for the initial load
+    updateAnalysis(displayedCount);
+};
+
+// Call the display function
+displayRecommendations(recommendations);
+});
+
+document.getElementById('downloadPDF').addEventListener('click', () => {
+  const element = document.getElementById('dashboard'); // the container you want to export
+  const options = {
+    margin:       0.5,
+    filename:     'DesignGenie_Report.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(options).from(element).save();
+});
+
+    // // Call displayRecommendations when the page loads
+    // document.addEventListener("DOMContentLoaded", displayRecommendations);
+
+    
+        //     // Confirm and download guide as PDF
+        //     function confirmAndDownloadGuide() {
+        //         if (confirm("Are you satisfied with the design recommendations?")) {
+        //             generatePDF();
+        //         }
+        //     }
+    
+        //     // Generate PDF function
+        //     function generatePDF() {
+        //         const doc = new jsPDF();
+        //         doc.setFontSize(16);
+        //         doc.text("Personalized Design Guide", 10, 10);
+    
+        //         // User input data
+        //         const inputs = [
+        //             `Platform: ${userInputs.deviceType || userInputs.device_type}`,
+        //             `Primary Goal: ${userInputs.userGoal || userInputs.primary_goal}`,
+        //             `Visual Style: ${userInputs.visualStyle || userInputs.visual_style}`,
+        //             `Content Type: ${userInputs.contentType || userInputs.content_type}`,
+        //             `Interaction: ${userInputs.interactionType || userInputs.interaction_type}`,
+        //             `Screen Size: ${userInputs.screenSize || userInputs.screen_size}`,
+        //             `Navigation Type: ${userInputs.navigationType || userInputs.navigation_type}`
+        //         ];
+        //         inputs.forEach((text, i) => doc.text(text, 10, 20 + i * 10));
+    
+        //         // Design recommendations
+        //         let y = 100;
+        //         recommendations.forEach((rec, index) => {
+        //             doc.setFontSize(12);
+        //             doc.text(`${index + 1}. ${rec.guideline}`, 10, y);
+        //             y += 10;
+        //             doc.setFontSize(10);
+        //             doc.text(rec.details, 15, y, { maxWidth: 180 });
+        //             y += 15;
+        //         });
+    
+        //         doc.save("Personalized_Design_Guide.pdf");
+        //         alert("Your personalized design guide has been downloaded!");
+        //     }
+    
+        //     // Attach download function
+        //     window.confirmAndDownloadGuide = confirmAndDownloadGuide;
+        //});
+    </script>
+</body>
+</html>
