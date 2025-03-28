@@ -1,24 +1,28 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const PORT = 5501;
+const PORT = process.env.PORT || 3000;
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Enable CORS
+// Middleware
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Define a POST route for `/submit`
+// Serve static files from 'public' folder
+app.use(express.static("public"));
+
+// Handle form submission
 app.post("/submit", (req, res) => {
-    console.log("Form Data Received:", req.body);
-    res.status(200).json({
-        message: "Form submitted successfully!",
-        recommendations: ["Recommendation 1", "Recommendation 2"],
-    });
+  console.log("Received form data:", req.body);
+  const recommendations = [
+    { guideline: "Use high-contrast text", details: "Helps accessibility." },
+    { guideline: "Simplify navigation", details: "Improves user experience." }
+  ];
+
+  res.json({ success: true, recommendations });
 });
 
-// Start the server
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://127.0.0.1:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
