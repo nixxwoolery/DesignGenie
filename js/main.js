@@ -96,13 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Save locally and send to backend
         localStorage.setItem("userInputs", JSON.stringify(formObject));
     
-        fetch("http://127.0.0.1:5500/submit", {
+        fetch("https://designgenie.glitch.me/submit", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(formObject),
-        })
+          })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
