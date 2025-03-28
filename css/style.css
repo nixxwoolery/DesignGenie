@@ -23,6 +23,60 @@
 
 
 /* Navbar */
+
+/* Make sure navbar is not overlapping */
+.navbar {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+}
+
+/* Push form content down just below navbar */
+.form-container {
+  margin-top: 80px; /* Enough space for the navbar */
+  padding: 20px;
+  width: 95%;
+  max-width: 1000px;
+  background-color: #fff;
+}
+
+/* Ensure progress bar is right under navbar */
+.progress-container {
+  margin-top: 0;
+  margin-bottom: 20px;
+  height: 12px;
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 500;
+  position: relative;
+}
+
+/* Bar inside it */
+.progress-bar {
+  height: 100%;
+  width: 0%; /* JS will update this */
+  background-color: #0ABAB5;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Reduce spacing in steps so bar isn’t pushed down */
+.form-step {
+  padding-top: 10px;
+}
+
+label,
+h2,
+h3 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
 .navbar {
      width: 100%;
      background-color: #333;
@@ -105,7 +159,7 @@ body {
 }
 
 .form-container {
-  width: 100%;
+  width: 90%;
   max-width: 1000px;
   padding: 20px;
   margin: 80px auto 20px auto;
