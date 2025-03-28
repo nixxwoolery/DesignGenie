@@ -1,13 +1,13 @@
-# DesignGenie: A UX Design Recommendation System
+#DesignGenie: A UX Design Recommendation System
 
 Welcome to the DesignGenie repository!
 
-## Welcome! 👋
+##Welcome! 👋
 Thanks for checking out my project.
 
 ---
 
-## Table of Contents
+##Table of Contents
 - [About the Project](#about-the-project)
   - [Overview](#overview)
   - [Goals](#goals)
@@ -20,12 +20,12 @@ Thanks for checking out my project.
 
 ---
 
-## About the Project
+##About the Project
 
-### Overview
+###Overview
 DesignGenie is a personalized UX design recommendation system that translates design theory into practical suggestions. Users enter project-specific details (e.g., target audience, platform, content type), and the system outputs curated recommendations grounded in accessibility and usability standards. It’s ideal for designers, marketers, and developers seeking guided inspiration.
 
-### Goals
+###Goals
 The key objectives of this project included:
 
 **User-Centered Design Guidance**
@@ -42,27 +42,27 @@ The key objectives of this project included:
 
 ---
 
-## Technologies Used
+##Technologies Used
 
-### Core Stack
+###Core Stack
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Backend:** Python (Flask)
 - **Database:** SQLite (`design_recommendations.db`)
 - **Development Tools:** Git, Jupyter Notebooks
 
-### What I Learned
+###What I Learned
 - Structuring UX knowledge into a normalized schema
 - Creating hybrid recommendation systems (static theory + dynamic inputs)
 - Designing with accessibility in mind from the ground up
 - Connecting backend logic to a clean, easy-to-navigate frontend
 
-### Continued Development
+###Continued Development
 - Implementing a color-matching tool for accessible palette recommendations
 - Mapping user emotional tone or brand mood into style suggestions
 - Creating real-time feedback modules or tooltips in the GUI
 - Building a Figma or Sketch plugin for rapid design iteration
 
-### The Design
+###The Design
 This tool is built on a modular design framework:
 - A user-friendly front end with contextual guidance
 - A well-structured database that reflects real-world UX heuristics
@@ -70,14 +70,14 @@ This tool is built on a modular design framework:
 
 ---
 
-## Author
+##Author
 Created by **Nicolette Woolery**  
 Website: [nicolettewoolery.com](https://www.nicolettewoolery.com)  
 Instagram: [@codingwithnixx](https://www.instagram.com/nixxintech)
 
 ---
 
-## Acknowledgments
+##Acknowledgments
 Thank you to the open-source design and UX communities, mentors, and friends who inspired this system and supported its development.
 
 ---
