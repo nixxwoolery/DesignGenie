@@ -376,7 +376,7 @@ label:hover {
 }
 
 .project-actions button {
-    background: linear-gradient(135deg, #233524, #3a5e39);
+    background: linear-gradient(135deg, #0f172a, #3f5488);
   color: #fff;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -396,7 +396,7 @@ label:hover {
 
 .sidebar {
     width: 250px;
-    background-color: #233524;
+    background-color: #0f172a;
     color: #fff;
     padding: 100px 40px 0 40px;
     height: 100vh;
@@ -424,7 +424,7 @@ label:hover {
 }
 
 .sidebar nav ul li a.active {
-  background-color: #3a5e39;
+  background-color: #3f5488;
   color: #fff;
   border-radius: 0.5rem;
 }
@@ -446,7 +446,8 @@ label:hover {
 
 .sidebar nav ul li a:hover,
 .sidebar nav ul li a.active {
-  background-color: #3a5e39; /* or a light green glow */
+  background-color: #3f5488;
+  padding: 10px;
 }
 
 @media (max-width: 600px) {
@@ -968,7 +969,7 @@ body {
  .testimonials {
      width: 100%;
      height: 60vh;
-     background-color: #d9f1f0;
+     background-color: #3f5488;
      padding: 60px 40px;
      text-align: center;
  }
@@ -976,6 +977,7 @@ body {
  .testimonials h2 {
      font-size: 2rem;
      margin-bottom: 40px;
+     color: #fff;
  }
  
  .testimonial-cards {
@@ -1002,7 +1004,7 @@ body {
   color: #fff;
   text-align: center;
   padding: 100px 0;
-  min-height: 60vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1647,14 +1649,6 @@ button:hover, .magic-card:hover {
   .header-title {
     padding-top: 100px;
   }
-}
-
-.testimonials {
-  width: 100%;
-  background-color: #d9f1f0;
-  padding: 60px 40px;
-  text-align: center;
-  height: auto;
 }
 
 @media (max-width: 768px) {
