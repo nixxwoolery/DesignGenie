@@ -79,13 +79,17 @@ h3 {
 
 .navbar {
      width: 100%;
-     background-color: #333;
+     background-color: #3333337e;
      color: #fff;
      padding: 15px 20px;
      position: fixed; /* Fix the navbar to the top */
      top: 0;
      z-index: 1000;
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.8); /* Dark glass effect */
 }
 
 label,
