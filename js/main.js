@@ -78,18 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    localStorage.clear();
+    // localStorage.clear();
 
     // Form submission handler
     form.addEventListener("submit", (e) => {
         e.preventDefault();
     
         const formData = new FormData(form);
+
+        const colorValue = document.getElementById("colorPicker").value;
+        formData.set("color_code", colorValue);
+
         const formObject = {};
         formData.forEach((value, key) => {
             console.log(`Collecting form data - ${key}: ${value}`);
             formObject[key] = value;
         });
+        formObject["color_code"] = colorValue;
     
         console.log("Collected Form Data:", formObject);
     

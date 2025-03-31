@@ -45,8 +45,8 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#" id="overviewLink">Overview</a></li>
-                <li><a href="#" id="recommendationsLink">Design Recommendations</a></li>
+                <li><a href="#overviewSection" id="overviewLink">Overview</a></li>
+                <li><a href="#recommendations-section" id="recommendationsLink">Design Recommendations</a></li>
                 <!-- <li><a href="#">Statistics</a></li> -->
             </ul>
         </nav>
@@ -148,7 +148,7 @@
         </section>
     
         <!-- Recommendations Section -->
-        <section class="recommendations-section">
+        <section class="recommendations-section" id="recommendations-section">
             <h2>Design Recommendations</h2>
             <div id="recommendations-by-category">
                 <!-- Recommendations will be dynamically populated here -->
@@ -159,7 +159,12 @@
     <!-- JavaScript to Populate Data and Download PDF -->
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
-            const userInputs = JSON.parse(localStorage.getItem("userInputs")) || {};
+            const userInputs = JSON.parse(localStorage.getItem("userInputs") || "{}");
+            let baseColor = userInputs.color_code;
+            if (!baseColor) {
+                console.warn("No color_code found in userInputs. Using default.");
+                baseColor = "#FF5733"; // Fallback color
+            }
             const recommendations = JSON.parse(localStorage.getItem("recommendations")) || [];
 
     console.log("Retrieved user inputs:", userInputs);
@@ -252,11 +257,11 @@
     });
 
     // Handle color palette generation
-const generateColorPalette = (baseColor) => {
-    if (!baseColor) {
-        console.error("Base color is required.");
-        return;
-    }
+    const generateColorPalette = (baseColor) => {
+        if (!baseColor) {
+            console.error("Base color is required.");
+            return;
+        }
 
     const colors = [
         baseColor, // Main color
@@ -308,7 +313,7 @@ function generateComplementaryColor(hex) {
 }
 
     // Initialize color palette
-    generateColorPalette(userInputs.color_code);
+    generateColorPalette(baseColor);
 
 
     const displayRecommendations = (recommendations) => {
@@ -318,8 +323,19 @@ function generateComplementaryColor(hex) {
 
         let displayedCount = 20; // Start by displaying the top 20 recommendations
 
-        // Sort recommendations by similarity score
-        const sortedRecs = recommendations.sort((a, b) => b.similarity_score - a.similarity_score);
+        // Defensive check for recommendations array
+        if (!Array.isArray(recommendations)) {
+            console.warn("Recommendations is not an array. Attempting to convert...");
+            recommendations = Object.values(recommendations || {});
+        }
+
+        // Sort recommendations by similarity score with error handling
+        let sortedRecs = [];
+        try {
+            sortedRecs = recommendations.sort((a, b) => (b.similarity_score || 0) - (a.similarity_score || 0));
+        } catch (error) {
+            console.error("Failed to sort recommendations:", error);
+        }
 
         // Helper function to display a specific number of recommendations
         const renderRecommendations = (count) => {

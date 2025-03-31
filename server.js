@@ -2,28 +2,30 @@ const express = require("express");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
-const dbPath = path.resolve(__dirname, "designgenie.db");
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error("Database connection error:", err.message);
-  } else {
-    console.log("Connected to the DesignGenie database.");
-  }
-});
-const app = express();
-const PORT = 5501;
 
-// Middleware to parse JSON
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// Enable CORS
-app.use(cors());
+// Connect to SQLite DB
+const dbPath = path.join(__dirname, "designgenie.db");
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("Error connecting to DB:", err.message);
+  } else {
+    console.log("Connected to designgenie.db");
+  }
+});
 
-// Define a POST route for `/submit`
+// Submit route
 app.post("/submit", (req, res) => {
   const userInputs = req.body;
 
-  // Example: Query based on a specific user input, such as platform or accessibility_need
+  const inputKeyword = userInputs.platform || "accessibility"; // fallback
+
   const query = `
     SELECT guideline, details 
     FROM Guidelines 
@@ -31,24 +33,30 @@ app.post("/submit", (req, res) => {
     LIMIT 5
   `;
 
-  const inputKeyword = userInputs.platform || "accessibility"; // fallback for example
-
   db.all(query, [inputKeyword], (err, rows) => {
     if (err) {
       console.error("Database query error:", err.message);
       return res.status(500).json({ error: "Database error" });
     }
-
-    const recommendations = rows.map(row => `${row.guideline}: ${row.details}`);
-
+  
+    console.log("Query returned rows:", rows); // <-- Add this
+  
+    const recommendations = rows.map((row) => {
+      console.log("Row keys:", Object.keys(row)); // Logs exact property names
+      const guideline = row.guideline || row.Guideline || '[No guideline]';
+      const details = row.details || row.Details || '[No details]';
+      return `${guideline}: ${details}`;
+      console.log("Recommendations:", recommendations);
+    });
+  
     res.status(200).json({
       message: "Form submitted successfully!",
-      recommendations: recommendations
+      recommendations: recommendations,
     });
   });
 });
 
-// Start the server
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://127.0.0.1:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
