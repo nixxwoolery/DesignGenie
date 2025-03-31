@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // localStorage.clear();
+    localStorage.clear();
 
     // Form submission handler
     form.addEventListener("submit", (e) => {
