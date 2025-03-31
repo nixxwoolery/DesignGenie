@@ -456,21 +456,71 @@ function generateComplementaryColor(hex) {
 displayRecommendations(recommendations);
 });
 
-document.getElementById('downloadPDF').addEventListener('click', () => {
-  const element = document.getElementById('dashboard'); // the container you want to export
-  const options = {
-    margin:       0.5,
-    filename:     'DesignGenie_Report.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
-
-  html2pdf().set(options).from(element).save();
-});
+    document.getElementById('downloadPDF').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const userInputs = JSON.parse(localStorage.getItem("userInputs") || "{}");
+      const recommendations = JSON.parse(localStorage.getItem("recommendations") || "[]");
+ 
+      doc.setFontSize(16);
+      doc.text("DesignGenie Report", 10, 10);
+ 
+      let y = 20;
+      doc.setFontSize(12);
+      doc.text("User Inputs:", 10, y);
+      y += 10;
+ 
+      Object.entries(userInputs).forEach(([key, value]) => {
+          let text = `${key}: ${Array.isArray(value) ? value.join(", ") : value}`;
+          if (y > 270) {
+              doc.addPage();
+              y = 10;
+          }
+          doc.text(text, 10, y);
+          y += 8;
+      });
+ 
+      y += 10;
+      doc.setFontSize(12);
+      doc.text("Recommendations:", 10, y);
+      y += 10;
+ 
+      recommendations.forEach((rec, index) => {
+          if (y > 270) {
+              doc.addPage();
+              y = 10;
+          }
+          doc.setFontSize(11);
+          doc.text(`${index + 1}. ${rec.guideline}`, 10, y);
+          y += 6;
+ 
+          doc.setFontSize(10);
+          const lines = doc.splitTextToSize(rec.details || "", 180);
+          lines.forEach(line => {
+              if (y > 270) {
+                  doc.addPage();
+                  y = 10;
+              }
+              doc.text(line, 12, y);
+              y += 5;
+          });
+ 
+          y += 6;
+      });
+ 
+      doc.save("DesignGenie_Report.pdf");
+    });
 
     // // Call displayRecommendations when the page loads
     // document.addEventListener("DOMContentLoaded", displayRecommendations);
+    
+    document.getElementById("emailLink").addEventListener("click", () => {
+      const dashboard = document.getElementById("dashboard-container") || document.body;
+      const text = dashboard.innerText || "Check out this DesignGenie report.";
+      const subject = encodeURIComponent("Check out my DesignGenie report");
+      const body = encodeURIComponent(text);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    });
 
     
         //     // Confirm and download guide as PDF
