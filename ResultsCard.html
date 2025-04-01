@@ -47,7 +47,7 @@
             <ul>
                 <li><a href="#overviewSection" id="overviewLink">Overview</a></li>
                 <li><a href="#recommendations-section" id="recommendationsLink">Design Recommendations</a></li>
-                <!-- <li><a href="#">Statistics</a></li> -->
+                <li><a href="#recommendation-analysis">Statistics</a></li>
             </ul>
         </nav>
     </aside>
@@ -317,212 +317,232 @@ function generateComplementaryColor(hex) {
 
 
     const displayRecommendations = (recommendations) => {
-        const container = document.getElementById("recommendations-by-category");
-        if (!container) return;
-        container.innerHTML = "";
+    const container = document.getElementById("recommendations-by-category");
+    if (!container) return;
+    container.innerHTML = ""; // Clear previous content
 
-        let displayedCount = 20; // Start by displaying the top 20 recommendations
+    // Remove any existing analysis to prevent duplication
+    const existingAnalysis = document.getElementById("recommendation-analysis");
+    if (existingAnalysis) {
+        existingAnalysis.remove();
+    }
 
-        // Defensive check for recommendations array
-        if (!Array.isArray(recommendations)) {
-            console.warn("Recommendations is not an array. Attempting to convert...");
-            recommendations = Object.values(recommendations || {});
+    if (!Array.isArray(recommendations)) {
+        console.warn("Recommendations is not an array. Converting...");
+        recommendations = Object.values(recommendations || {});
+    }
+
+    // Deduplicate recommendations by guideline to prevent repetition
+    const uniqueRecommendations = [];
+    const seenGuidelines = new Set();
+    
+    recommendations.forEach(rec => {
+        // Use the guideline as a unique identifier
+        if (!seenGuidelines.has(rec.guideline)) {
+            seenGuidelines.add(rec.guideline);
+            uniqueRecommendations.push(rec);
         }
+    });
+    
+    // Sort recommendations by similarity score (if available) to prioritize more relevant ones
+    uniqueRecommendations.sort((a, b) => {
+        const scoreA = a.similarity_score || 0;
+        const scoreB = b.similarity_score || 0;
+        return scoreB - scoreA; // Descending order
+    });
+    
+    // Limit the total number of recommendations to 50 max
+    const MAX_TOTAL_RECOMMENDATIONS = 50;
+    const limitedRecommendations = uniqueRecommendations.slice(0, MAX_TOTAL_RECOMMENDATIONS);
+    
+    // Initially display only 25 recommendations
+    const INITIAL_DISPLAY_COUNT = 25;
+    let currentlyDisplayed = INITIAL_DISPLAY_COUNT;
+    
+    const render = () => {
+        container.innerHTML = ""; // Clear previous content
+        
+        // Display the current set of recommendations
+        const visibleRecommendations = limitedRecommendations.slice(0, currentlyDisplayed);
+        
+        // Group visible recommendations by section
+        const groupedBySection = visibleRecommendations.reduce((acc, rec) => {
+            const section = rec.section || "General";
+            if (!acc[section]) acc[section] = [];
+            acc[section].push(rec);
+            return acc;
+        }, {});
+        
+        // Render each section
+        Object.entries(groupedBySection).forEach(([section, recs]) => {
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "category-section mb-8";
 
-        // Sort recommendations by similarity score with error handling
-        let sortedRecs = [];
-        try {
-            sortedRecs = recommendations.sort((a, b) => (b.similarity_score || 0) - (a.similarity_score || 0));
-        } catch (error) {
-            console.error("Failed to sort recommendations:", error);
-        }
+            const title = document.createElement("h3");
+            title.className = "category-title text-xl font-bold mb-4";
+            title.textContent = section;
+            sectionDiv.appendChild(title);
 
-        // Helper function to display a specific number of recommendations
-        const renderRecommendations = (count) => {
-            container.innerHTML = ""; // Clear the container
-            const topRecs = sortedRecs.slice(0, count);
+            const grid = document.createElement("div");
+            grid.className = "recommendations-grid grid gap-4";
 
-            // Group by section
-            const bySection = topRecs.reduce((acc, rec) => {
-                const section = rec.section || "General"; // Default to "General" if section is missing
-                if (!acc[section]) acc[section] = [];
-                acc[section].push(rec);
-                return acc;
-            }, {});
+            recs.forEach((rec) => {
+                const card = document.createElement("div");
+                card.className = "recommendation-card bg-white rounded-lg shadow p-4";
 
-            // Sort sections by highest relevance score within each section
-            const sortedSections = Object.entries(bySection).sort((a, b) => {
-                const aMaxScore = Math.max(...a[1].map(r => r.similarity_score || 0));
-                const bMaxScore = Math.max(...b[1].map(r => r.similarity_score || 0));
-                return bMaxScore - aMaxScore;
+                const takeawayMatch = rec.details?.split("Takeaways:");
+                const cleanDetails = takeawayMatch?.[0]?.trim();
+                const takeaway = takeawayMatch?.[1]?.trim();
+
+                card.innerHTML = `
+                    <div class="metadata mb-3 text-sm text-gray-600">
+                        <span><strong>Category:</strong> ${rec.category || "General"}</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">${rec.guideline}</h4>
+                    ${cleanDetails ? `<p>${cleanDetails}</p>` : ""}
+                    ${takeaway ? `<p class="text-blue-600 font-medium mt-2">Takeaway: ${takeaway}</p>` : ""}
+                `;
+                grid.appendChild(card);
             });
 
-        // Display grouped recommendations by section
-        sortedSections.forEach(([section, recs]) => {
-            const sectionDiv = document.createElement("div");
-            sectionDiv.className = "category-section";
-            sectionDiv.innerHTML = `
-                <h3 class="category-title">${section}</h3>
-                <div class="recommendations-grid">
-                    ${recs.map(rec => {
-                        let details = rec.details || "";
-                        let takeaways = "";
-
-                        if (details.includes("Takeaways:")) {
-                            const parts = details.split("Takeaways:");
-                            details = parts[0].trim();
-                            takeaways = parts[1].trim();
-                        }
-
-                    return `
-                        <div class="recommendation-card bg-white rounded-lg shadow p-4 mb-4">
-                            <div class="metadata mb-3 text-sm text-gray-600">
-                                <span class="mr-4"><strong>Category:</strong> ${rec.category || "General"}</span>
-                                ${rec.subsection ? `<span><strong>Subsection:</strong> ${rec.subsection}</span>` : ''}
-                            </div>
-                            
-                            <h4 class="text-lg font-semibold mb-2">${rec.guideline}</h4>
-                            ${details ? `<p class="mb-3">${details}</p>` : ""}
-                            ${takeaways ? `
-                                <div class="bg-blue-50 p-3 rounded">
-                                    Takeaway: ${takeaways}
-                                </div>
-                            ` : ""}
-                        </div>
-                    `;
-                }).join("")}
-            `;
+            sectionDiv.appendChild(grid);
             container.appendChild(sectionDiv);
         });
-
-        // Update recommendation analysis
-        updateAnalysis(count);
-    };
-
-    // Function to update the analysis section
-    const updateAnalysis = (count) => {
-        const analysis = document.getElementById("recommendation-analysis");
-        if (!analysis) return;
-
-        const totalRecommendations = count;
-        const averageSimilarityScore = (
-            sortedRecs.slice(0, count).reduce((sum, rec) => sum + rec.similarity_score, 0) /
-            totalRecommendations
-        ).toFixed(2);
-        const categoriesCovered = [...new Set(sortedRecs.slice(0, count).map(rec => rec.category || "Uncategorized"))];
-        const sectionsCovered = [...new Set(sortedRecs.slice(0, count).map(rec => rec.section || "General"))];
-
-        analysis.innerHTML = `
-            <h3 class="text-lg font-bold mb-4">Recommendation Analysis</h3>
-            <ul class="list-disc pl-5">
-                <li><strong>Total Recommendations:</strong> ${totalRecommendations}</li>
-                <li><strong>Average Similarity Score:</strong> ${averageSimilarityScore}</li>
-                <li><strong>Categories Covered:</strong> ${categoriesCovered.join(", ")}</li>
-                <li><strong>Sections Covered:</strong> ${sectionsCovered.join(", ")}</li>
-            </ul>
-        `;
-    };
-
-    // Add a "Load More" button
-    const loadMoreBtn = document.createElement("button");
-    loadMoreBtn.textContent = "Load More";
-    loadMoreBtn.className = "load-more-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4";
-    loadMoreBtn.addEventListener("click", () => {
-        displayedCount += 20; // Increase the number of recommendations displayed
-        renderRecommendations(displayedCount);
-
-        // Hide the button if all recommendations are displayed
-        if (displayedCount >= recommendations.length) {
-            loadMoreBtn.style.display = "none";
+        
+        // Load More button - only show if there are more recommendations to display
+        if (currentlyDisplayed < limitedRecommendations.length) {
+            const loadMoreContainer = document.createElement("div");
+            loadMoreContainer.className = "text-center my-8";
+            
+            const loadMoreBtn = document.createElement("button");
+            loadMoreBtn.className = "load-more-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded";
+            loadMoreBtn.textContent = `Load More (${currentlyDisplayed} of ${limitedRecommendations.length})`;
+            
+            loadMoreBtn.addEventListener("click", () => {
+                currentlyDisplayed = Math.min(currentlyDisplayed + INITIAL_DISPLAY_COUNT, limitedRecommendations.length);
+                render(); // Re-render with more recommendations
+            });
+            
+            loadMoreContainer.appendChild(loadMoreBtn);
+            container.appendChild(loadMoreContainer);
         }
         
-    });
+        // Always render the analysis at the bottom
+        renderAnalysis(limitedRecommendations, seenGuidelines.size);
+    };
 
-    // Render initial recommendations and button
-    renderRecommendations(displayedCount);
-    container.appendChild(loadMoreBtn);
-
-    // Add recommendation analysis container
-    const analysisDiv = document.createElement("div");
-    analysisDiv.id = "recommendation-analysis";
-    analysisDiv.className = "recommendation-analysis mt-8 p-4 bg-gray-100 rounded-lg shadow";
-    container.appendChild(analysisDiv);
-
-    // Update analysis for the initial load
-    updateAnalysis(displayedCount);
+    render();
 };
 
-// Call the display function
-displayRecommendations(recommendations);
-});
-
-    document.getElementById('downloadPDF').addEventListener('click', () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const userInputs = JSON.parse(localStorage.getItem("userInputs") || "{}");
-      const recommendations = JSON.parse(localStorage.getItem("recommendations") || "[]");
- 
-      doc.setFontSize(16);
-      doc.text("DesignGenie Report", 10, 10);
- 
-      let y = 20;
-      doc.setFontSize(12);
-      doc.text("User Inputs:", 10, y);
-      y += 10;
- 
-      Object.entries(userInputs).forEach(([key, value]) => {
-          let text = `${key}: ${Array.isArray(value) ? value.join(", ") : value}`;
-          if (y > 270) {
-              doc.addPage();
-              y = 10;
-          }
-          doc.text(text, 10, y);
-          y += 8;
-      });
- 
-      y += 10;
-      doc.setFontSize(12);
-      doc.text("Recommendations:", 10, y);
-      y += 10;
- 
-      recommendations.forEach((rec, index) => {
-          if (y > 270) {
-              doc.addPage();
-              y = 10;
-          }
-          doc.setFontSize(11);
-          doc.text(`${index + 1}. ${rec.guideline}`, 10, y);
-          y += 6;
- 
-          doc.setFontSize(10);
-          const lines = doc.splitTextToSize(rec.details || "", 180);
-          lines.forEach(line => {
-              if (y > 270) {
-                  doc.addPage();
-                  y = 10;
-              }
-              doc.text(line, 12, y);
-              y += 5;
-          });
- 
-          y += 6;
-      });
- 
-      doc.save("DesignGenie_Report.pdf");
-    });
-
-    // // Call displayRecommendations when the page loads
-    // document.addEventListener("DOMContentLoaded", displayRecommendations);
+const renderAnalysis = (recs, totalAvailable) => {
+    // Remove any existing analysis section to prevent duplication
+    const existingAnalysis = document.getElementById("recommendation-analysis");
+    if (existingAnalysis) {
+        existingAnalysis.remove();
+    }
     
-    document.getElementById("emailLink").addEventListener("click", () => {
-      const dashboard = document.getElementById("dashboard-container") || document.body;
-      const text = dashboard.innerText || "Check out this DesignGenie report.";
-      const subject = encodeURIComponent("Check out my DesignGenie report");
-      const body = encodeURIComponent(text);
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
-    });
-
+    // Create the separator and analysis container
+    const analysisContainer = document.createElement("div");
+    analysisContainer.className = "mt-12 pt-8 border-t border-gray-300";
     
+    const analysisDiv = document.createElement("div");
+    analysisDiv.id = "recommendation-analysis";
+    analysisDiv.className = "recommendation-analysis p-6 bg-gray-100 rounded-lg shadow";
+
+    const totalRecommendations = recs.length;
+    const similarityScores = recs.map(r => r.similarity_score || 0);
+    const averageSimilarityScore = (
+        similarityScores.reduce((sum, val) => sum + val, 0) / totalRecommendations
+    ).toFixed(2);
+    const categoriesCovered = [...new Set(recs.map(r => r.category || "Uncategorized"))];
+    const sectionsCovered = [...new Set(recs.map(r => r.section || "General"))];
+
+    analysisDiv.innerHTML = `
+        <h3 id="recommendation-analysis" class="text-xl font-bold mb-4">Recommendation Analysis</h3>
+        <ul class="list-disc pl-5">
+            <li><strong>Recommendations:</strong> ${totalRecommendations} highest-priority recommendations shown.</li>
+            <li><strong>Categories Covered:</strong> ${categoriesCovered.join(", ")}</li>
+            <li><strong>Design Areas:</strong> ${sectionsCovered.join(", ")}</li>
+        </ul>
+        <p class="mt-4 text-sm text-gray-600">All recommendations are ranked by relevance to your specific design requirements. Use these guidelines to inform your design decisions.</p>
+    `;
+
+    analysisContainer.appendChild(analysisDiv);
+    
+    const section = document.getElementById("recommendations-section");
+    if (section) {
+        section.appendChild(analysisContainer);
+    }
+};
+           
+        document.getElementById('downloadPDF').addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const userInputs = JSON.parse(localStorage.getItem("userInputs") || "{}");
+        const recommendations = JSON.parse(localStorage.getItem("recommendations") || "[]");
+    
+        doc.setFontSize(16);
+        doc.text("DesignGenie Report", 10, 10);
+    
+        let y = 20;
+        doc.setFontSize(12);
+        doc.text("User Inputs:", 10, y);
+        y += 10;
+    
+        Object.entries(userInputs).forEach(([key, value]) => {
+            let text = `${key}: ${Array.isArray(value) ? value.join(", ") : value}`;
+            if (y > 270) {
+                doc.addPage();
+                y = 10;
+            }
+            doc.text(text, 10, y);
+            y += 8;
+        });
+    
+        y += 10;
+        doc.setFontSize(12);
+        doc.text("Recommendations:", 10, y);
+        y += 10;
+    
+        recommendations.forEach((rec, index) => {
+            if (y > 270) {
+                doc.addPage();
+                y = 10;
+            }
+            doc.setFontSize(11);
+            doc.text(`${index + 1}. ${rec.guideline}`, 10, y);
+            y += 6;
+    
+            doc.setFontSize(10);
+            const lines = doc.splitTextToSize(rec.details || "", 180);
+            lines.forEach(line => {
+                if (y > 270) {
+                    doc.addPage();
+                    y = 10;
+                }
+                doc.text(line, 12, y);
+                y += 5;
+            });
+    
+            y += 6;
+        });
+    
+        doc.save("DesignGenie_Report.pdf");
+        });
+
+        // // Call displayRecommendations when the page loads
+        // document.addEventListener("DOMContentLoaded", displayRecommendations);
+        
+        document.getElementById("emailLink").addEventListener("click", () => {
+        const dashboard = document.getElementById("dashboard-container") || document.body;
+        const text = dashboard.innerText || "Check out this DesignGenie report.";
+        const subject = encodeURIComponent("Check out my DesignGenie report");
+        const body = encodeURIComponent(text);
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        });
+
+        displayRecommendations(recommendations);
+    });
         //     // Confirm and download guide as PDF
         //     function confirmAndDownloadGuide() {
         //         if (confirm("Are you satisfied with the design recommendations?")) {
