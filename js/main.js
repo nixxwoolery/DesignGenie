@@ -5,8 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalSteps = steps.length;
     let currentStepIndex = 0;
     const userInputs = JSON.parse(localStorage.getItem("userInputs"));
-    const recommendations = JSON.parse(localStorage.getItem("recommendations"));
-
+    let recommendations = JSON.parse(localStorage.getItem("recommendations")) || [];
+    if (!Array.isArray(recommendations)) {
+      console.warn("Converting recommendations to array.");
+      recommendations = Object.values(recommendations); // Or check for recommendations.data
+    }
     function updateProgressBar(stepIndex) {
         if (!progressBar) {
             console.warn("Progress bar element not found.");
